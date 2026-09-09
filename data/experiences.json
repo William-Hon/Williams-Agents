@@ -1,0 +1,95 @@
+[
+  {
+    "id": "BAIN_COOP",
+    "organization": "Bain & Company",
+    "role": "Software Engineer Co-op",
+    "location": "Boston, MA",
+    "start_date": "Jan 2026",
+    "end_date": "Jun 2026",
+    "bullets": [
+      {
+        "id": "BAIN_01",
+        "text": "Deployed an AI usage analytics platform across 12K+ users, reducing FinOps reporting by 97% using Terraform IaC within CI/CD pipelines to provision Azure Function Apps and PostgreSQL relational data models.",
+        "skills": ["Python", "Terraform", "IaC", "CI/CD", "Azure Function Apps", "PostgreSQL", "FinOps", "Data Pipelines", "Analytics"],
+        "metrics": "12K+ users, 97% reduction in reporting time",
+        "category": "infrastructure_cloud"
+      },
+      {
+        "id": "BAIN_02",
+        "text": "Automated Cursor provisioning for 1K+ users with CursorAPI & Replit managing user lifecycle workflows.",
+        "skills": ["CursorAPI", "Replit", "Workflow Automation", "API Integration"],
+        "metrics": "1K+ users",
+        "category": "automation_devops"
+      },
+      {
+        "id": "BAIN_03",
+        "text": "Engineered artifact removal pipelines improving access security by 88% via Portkey API & Python functions.",
+        "skills": ["Python", "Portkey API", "Security", "Serverless", "Data Pipelines"],
+        "metrics": "88% access security improvement",
+        "category": "security_backend"
+      }
+    ]
+  },
+  {
+    "id": "KHOURY_RA",
+    "organization": "Khoury College of Computer Sciences",
+    "role": "Undergraduate Research Assistant",
+    "location": "Boston, MA",
+    "start_date": "Jan 2025",
+    "end_date": "Oct 2025",
+    "bullets": [
+      {
+        "id": "KHOURY_RA_01",
+        "text": "Engineered an data retrieval pipeline for pending Supreme Court cases using NLP, KeyBERT, and Selenium.",
+        "skills": ["Python", "NLP", "KeyBERT", "Selenium", "Web Scraping", "Data Retrieval"],
+        "metrics": "pending Supreme Court cases dataset",
+        "category": "nlp_data_engineering"
+      },
+      {
+        "id": "KHOURY_RA_02",
+        "text": "Improved retrieval accuracy to 90% across ~3,500 articles using Gemma-2B and Hugging Face LLMs.",
+        "skills": ["Gemma-2B", "Hugging Face", "LLMs", "NLP", "Evaluation", "Model Fine-tuning"],
+        "metrics": "90% accuracy across ~3,500 articles",
+        "category": "ai_llm"
+      },
+      {
+        "id": "KHOURY_RA_03",
+        "text": "Processed 10+ metadata fields for linguistic analysis using Pandas preprocessing and validation.",
+        "skills": ["Python", "Pandas", "Data Cleaning", "Validation", "Data Analysis"],
+        "metrics": "10+ metadata fields",
+        "category": "data_analysis"
+      }
+    ]
+  },
+  {
+    "id": "KHOURY_TUTOR",
+    "organization": "Khoury College of Computer Sciences",
+    "role": "Academic Tutor",
+    "location": "Oakland, CA",
+    "start_date": "Jan 2025",
+    "end_date": "Jun 2025",
+    "bullets": [
+      {
+        "id": "KHOURY_TUTOR_01",
+        "text": "Tutored 11+ students in Python, OOP, Algorithms, and C# through individualized technical instruction.",
+        "skills": ["Python", "C#", "OOP", "Algorithms", "Data Structures", "Technical Communication"],
+        "metrics": "11+ students",
+        "category": "instruction_mentorship"
+      },
+      {
+        "id": "KHOURY_TUTOR_02",
+        "text": "Improved student grades, including 20+ point gains for two students, through 20 weeks of group sessions.",
+        "skills": ["Mentorship", "Problem Solving", "Student Coaching"],
+        "metrics": "20+ point grade gains, 20 weeks",
+        "category": "mentorship"
+      },
+      {
+        "id": "KHOURY_TUTOR_03",
+        "text": "Led study groups of 3–6 students, improving collaboration through guided technical problem-solving sessions.",
+        "skills": ["Collaboration", "Leadership", "Technical Problem Solving"],
+        "metrics": "3–6 students per group",
+        "category": "collaboration"
+      }
+    ]
+  }
+]

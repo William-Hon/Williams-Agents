@@ -1,0 +1,60 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+.venv/
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Secrets and environment variables
+.env
+.env.local
+*.pem
+*.key
+token.json
+credentials.json
+
+# Local data & database
+data/applications.db
+data/browser_profile/
+data/approved_answers/*
+!data/approved_answers/.gitkeep
+
+# Personal and generated documents
+generated/*
+!generated/.gitkeep
+data/application_profile.txt
+*.pdf
+
+# Logs & outputs
+output/logs/*
+!output/logs/.gitkeep
+*.log
+
+# Node / React Dashboard
+dashboard/node_modules/
+dashboard/dist/
+dashboard/.env.local
+
+# OS / IDE
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
