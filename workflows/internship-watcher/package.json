@@ -1,0 +1,13 @@
+{
+  "name": "@autonomous-workflows/internship-watcher",
+  "version": "1.0.0",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "@autonomous-workflows/core": "1.0.0"
+  }
+}

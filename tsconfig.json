@@ -1,0 +1,19 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "CommonJS",
+    "moduleResolution": "node",
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "composite": true,
+    "declaration": true
+  },
+  "references": [
+    { "path": "./packages/core" },
+    { "path": "./workflows/internship-watcher" }
+  ],
+  "files": [],
+  "exclude": ["node_modules", "dist"]
+}

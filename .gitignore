@@ -1,0 +1,17 @@
+# Dependencies
+node_modules/
+coverage/
+
+# Build artifacts
+dist/
+out/
+*.tsbuildinfo
+
+# Supabase temporary files
+.supabase/
+supabase/.temp/
+
+# Environment Variables
+.env
+.env.*
+!.env.example

@@ -1,0 +1,28 @@
+{
+  "name": "autonomous-workflows",
+  "version": "1.0.0",
+  "description": "General-purpose autonomous workflows repository",
+  "private": true,
+  "workspaces": [
+    "packages/*",
+    "workflows/*"
+  ],
+  "scripts": {
+    "typecheck": "tsc --build",
+    "test": "vitest run",
+    "test:internship-watcher": "vitest run workflows/internship-watcher",
+    "dev:internship-sources": "tsx workflows/internship-watcher/src/dev-sources.ts",
+    "dev:internship-filter": "tsx workflows/internship-watcher/src/dev-filter.ts"
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.0",
+    "supabase": "^2.117.0",
+    "tsx": "^4.23.13",
+    "typescript": "^5.4.0",
+    "vitest": "^1.4.0"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.116.0",
+    "dotenv": "^18.0.1"
+  }
+}
