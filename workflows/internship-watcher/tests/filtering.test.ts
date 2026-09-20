@@ -60,6 +60,19 @@ describe('Filtering Rules', () => {
     const res = filterJob({ ...baseJob, title: 'Marketing Intern', category: 'Marketing' });
     expect(res.accepted).toBe(true);
   });
+
+  test('ACCEPT: Job posted 5 days ago', () => {
+    const fiveDaysAgo = new Date(Date.now() - 5 * 24 * 60 * 60 * 1000).toISOString();
+    const res = filterJob({ ...baseJob, postedAt: fiveDaysAgo });
+    expect(res.accepted).toBe(true);
+  });
+
+  test('REJECT: Job posted 31 days ago', () => {
+    const thirtyOneDaysAgo = new Date(Date.now() - 31 * 24 * 60 * 60 * 1000).toISOString();
+    const res = filterJob({ ...baseJob, postedAt: thirtyOneDaysAgo });
+    expect(res.accepted).toBe(false);
+    expect(res.reason).toBe('TOO_OLD');
+  });
 });
 
 describe('Location Classification', () => {

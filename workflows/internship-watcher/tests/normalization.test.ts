@@ -21,6 +21,7 @@ describe('Normalization', () => {
       expect(res?.source).toBe("applyguy");
       expect(res?.applyUrl).toBe("https://acme.com/job");
       expect(res?.terms).toEqual(["Summer 2027"]);
+      expect(res?.postedAt).toBe(new Date("2026-09-16").toISOString());
     });
 
     test('missing optional season', () => {
@@ -65,6 +66,7 @@ describe('Normalization', () => {
       expect(res?.terms).toEqual(["Summer 2027", "Fall 2027"]);
       expect(res?.locations).toEqual(["Remote", "New York, NY"]);
       expect(res?.active).toBe(true);
+      expect(res?.postedAt).toBe(new Date(1768807345 * 1000).toISOString());
     });
 
     test('inactive record', () => {
