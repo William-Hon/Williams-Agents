@@ -1,3 +1,3 @@
-export * from "./source";
-export * from "./applyguy";
-export * from "./simplify";
+export * from "./source.ts";
+export * from "./applyguy.ts";
+export * from "./simplify.ts";

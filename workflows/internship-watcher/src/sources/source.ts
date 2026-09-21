@@ -1,4 +1,4 @@
-import { JobSource } from "../types/job";
+import { JobSource } from "../types/job.ts";
 
 export interface SourceFetchResult<T> {
     source: JobSource;

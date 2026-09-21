@@ -1,4 +1,4 @@
-import { WorkflowRunResult } from "./result";
+import { WorkflowRunResult } from "./result.ts";
 
 export interface WorkflowContext {
     invocationId: string;

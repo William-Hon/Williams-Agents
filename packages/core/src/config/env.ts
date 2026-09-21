@@ -1,5 +1,6 @@
 export function getEnvVar(key: string, required: boolean = true): string {
-    const val = process.env[key];
+    // @ts-ignore
+    const val = typeof Deno !== 'undefined' ? Deno.env.get(key) : process.env[key];
     if (required && !val) {
         throw new Error(`Missing required environment variable: ${key}`);
     }

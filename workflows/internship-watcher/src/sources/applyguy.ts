@@ -1,4 +1,4 @@
-import { InternshipSource, SourceFetchResult } from "./source";
+import { InternshipSource, SourceFetchResult } from "./source.ts";
 import { Logger } from "@autonomous-workflows/core";
 
 export interface ApplyGuyRawJob {

@@ -1,8 +1,8 @@
 import { Logger } from "@autonomous-workflows/core";
-import "./config/env";
-import { ApplyGuySource } from "./sources/applyguy";
-import { SimplifySource } from "./sources/simplify";
-import { SourceRunner } from "./sources/runner";
+import "./config/env.ts";
+import { ApplyGuySource } from "./sources/applyguy.ts";
+import { SimplifySource } from "./sources/simplify.ts";
+import { SourceRunner } from "./sources/runner.ts";
 
 const logger = new Logger("internship-watcher");
 const isDebug = process.argv.includes("--debug");
@@ -37,6 +37,14 @@ async function main() {
         } else {
             logger.error(`FAILED: ${res.error}`, `Source:${res.source}`);
             console.log();
+            // Need to import publishSystemAlert dynamically to avoid circular dependencies if any
+            const { publishSystemAlert } = await import("./notifications/publisher");
+            await publishSystemAlert(
+                'critical',
+                `Fetcher: ${res.source}`,
+                `API Fetch Failed`,
+                res.error || 'Unknown error'
+            );
         }
     }
 

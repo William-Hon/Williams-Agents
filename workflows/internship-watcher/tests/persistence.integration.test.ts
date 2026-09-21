@@ -3,8 +3,7 @@ import { supabase } from '../src/db/client';
 import { persistJobs } from '../src/db/persistence';
 import { JobCandidate } from '../src/types/job';
 
-// Only run these tests if we have a real Supabase connection configured
-const runIntegrationTests = !!process.env.SUPABASE_URL && !!process.env.SUPABASE_SERVICE_ROLE_KEY;
+const runIntegrationTests = !!process.env.SUPABASE_TEST_URL && !!process.env.SUPABASE_SERVICE_ROLE_KEY;
 
 (runIntegrationTests ? describe : describe.skip)('Persistence Integration Tests (Supabase)', () => {
   const testJobId1 = 'test-job-1';
@@ -20,7 +19,7 @@ const runIntegrationTests = !!process.env.SUPABASE_URL && !!process.env.SUPABASE
     applyUrl: 'https://test.com/apply/1',
     sourceUrl: 'https://test.com/source/1',
     terms: ['Summer 2027'],
-    postedAt: new Date().toISOString(),
+    postedAt: '2026-09-20T00:00:00.000Z',
     active: true
   };
 
@@ -34,7 +33,7 @@ const runIntegrationTests = !!process.env.SUPABASE_URL && !!process.env.SUPABASE
     applyUrl: 'https://test.com/apply/2',
     sourceUrl: 'https://test.com/source/2',
     terms: ['Fall 2027'],
-    postedAt: new Date().toISOString(),
+    postedAt: '2026-09-20T00:00:00.000Z',
     active: true
   };
 

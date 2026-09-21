@@ -12,7 +12,15 @@
     "test": "vitest run",
     "test:internship-watcher": "vitest run workflows/internship-watcher",
     "dev:internship-sources": "tsx workflows/internship-watcher/src/dev-sources.ts",
-    "dev:internship-filter": "tsx workflows/internship-watcher/src/dev-filter.ts"
+    "dev:internship-filter": "tsx workflows/internship-watcher/src/dev-filter.ts",
+    "dev:internship-baseline": "tsx workflows/internship-watcher/src/dev-baseline.ts",
+    "dev:internship-notify-preflight": "tsx workflows/internship-watcher/src/dev-notify-preflight.ts",
+    "dev:internship-notify-job-test": "tsx workflows/internship-watcher/src/dev-notify-job-test.ts",
+    "dev:internship-notify-system-test": "tsx workflows/internship-watcher/src/dev-notify-system-test.ts",
+    "dev:internship-notify": "tsx workflows/internship-watcher/src/dev-notify.ts",
+    "dev:internship-notify-live": "tsx workflows/internship-watcher/src/dev-notify.ts --live",
+    "dev:internship-notify-test": "tsx workflows/internship-watcher/src/dev-notify-test.ts",
+    "dev:internship-watcher": "tsx workflows/internship-watcher/src/dev-watcher.ts"
   },
   "devDependencies": {
     "@types/node": "^20.11.0",

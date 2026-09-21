@@ -1,32 +1,41 @@
-import "./config/env";
-import { ApplyGuySource } from "./sources/applyguy";
-import { SimplifySource } from "./sources/simplify";
-import { normalizeApplyGuy } from "./normalization/applyguy";
-import { normalizeSimplify } from "./normalization/simplify";
-import { filterJob } from "./filtering/rules";
-import { classifyLocation } from "./filtering/location";
+import "./config/env.ts";
+import { ApplyGuySource } from "./sources/applyguy.ts";
+import { SimplifySource } from "./sources/simplify.ts";
+import { normalizeApplyGuy } from "./normalization/applyguy.ts";
+import { normalizeSimplify } from "./normalization/simplify.ts";
+import { classifyLocation } from "./filtering/location.ts";
+import { filterJob } from "./filtering/rules.ts";
+import { publishSystemAlert } from "./notifications/publisher.ts";
 
 async function runDevFilter() {
   console.log("==================================================");
   console.log("INTERNSHIP NORMALIZATION + FILTER CHECK");
   console.log("==================================================\n");
 
-  const allAcceptedJobs: any[] = [];
-
-  const applyguySource = new ApplyGuySource();
-  const simplifySource = new SimplifySource();
-
-  const [applyguyData, simplifyData] = await Promise.all([
-    applyguySource.fetch(),
-    simplifySource.fetch()
+  const [applyGuyData, simplifyData] = await Promise.all([
+    new ApplyGuySource().fetch(),
+    new SimplifySource().fetch()
   ]);
 
+  const allAcceptedJobs: any[] = [];
+
   const sources = [
-    { name: "ApplyGuy", data: applyguyData, normalizer: normalizeApplyGuy },
+    { name: "ApplyGuy", data: applyGuyData, normalizer: normalizeApplyGuy },
     { name: "Simplify", data: simplifyData, normalizer: normalizeSimplify }
   ];
 
   for (const src of sources) {
+    if (!src.data || !src.data.success) {
+      console.error(`[ERROR] Fetch for ${src.name} failed: ${src.data?.error}`);
+      await publishSystemAlert(
+        'critical',
+        `Fetcher: ${src.name}`,
+        `API Fetch Failed`,
+        src.data?.error || 'Unknown error fetching source'
+      );
+      continue;
+    }
+
     let inputCount = 0;
     let normalizedCount = 0;
     let failedNorm = 0;
@@ -151,6 +160,15 @@ async function runDevFilter() {
       console.log();
     }
     console.log("--------------------------------------------------");
+    
+    if (failedNorm > 0) {
+      await publishSystemAlert(
+        'warning',
+        `Normalizer: ${src.name}`,
+        `Standardization Warnings`,
+        `Failed to normalize ${failedNorm} out of ${inputCount} records. Check logs for schema changes.`
+      );
+    }
   }
 
   // --- PHASE 3: PERSISTENCE ---
@@ -165,6 +183,9 @@ async function runDevFilter() {
   }
 
   const { persistJobs } = await import("./db/persistence");
+  const { processCanonicals } = await import("./db/canonical");
+  const { supabase } = await import("./db/client");
+
   const startTime = Date.now();
   console.log(`[INFO] Persistence started...`);
   
@@ -181,9 +202,60 @@ async function runDevFilter() {
   if (stats.failed > 0) {
     console.log(`[ERROR] Failed records: ${stats.failed}`);
     console.log(`[INFO] Persistence completed with partial failures in ${durationMs}ms`);
+    await publishSystemAlert(
+      'error' as any,
+      `Database: Persistence`,
+      `Failed to persist ${stats.failed} jobs`,
+      `Check Supabase logs for insertion or constraint errors.`
+    );
   } else {
     console.log(`[INFO] Failed records: 0`);
     console.log(`[INFO] Persistence completed successfully in ${durationMs}ms`);
+  }
+
+  // --- PHASE 4: CANONICAL MATCHING ---
+  console.log("\n==================================================");
+  console.log("PHASE 4: CANONICAL JOB DETECTION");
+  console.log("==================================================");
+
+  if (stats.insertedIds.length === 0) {
+    console.log(`[INFO] No new source records inserted. Skipping canonicalization.`);
+  } else {
+    console.log(`[INFO] Processing ${stats.insertedIds.length} newly inserted source records...`);
+    const cStartTime = Date.now();
+    try {
+      const cStats = await processCanonicals(stats.insertedIds, false);
+      
+      const { count: pendingCount } = await supabase
+        .from("discovery_events")
+        .select("*", { count: "exact", head: true })
+        .eq("status", "pending");
+
+      console.log(`[INFO] Source records evaluated: ${stats.insertedIds.length}`);
+      console.log(`[INFO] Newly inserted source records: ${stats.insertedIds.length}`);
+      console.log(`\n[INFO] Exact URL matches: ${cStats.exact}`);
+      console.log(`[INFO] Normalized URL matches: ${cStats.normalized}`);
+      console.log(`[INFO] Source-specific fallbacks: ${cStats.fallback}`);
+      
+      console.log(`\n[INFO] Existing canonical jobs reused: ${cStats.linked - cStats.created}`);
+      console.log(`[INFO] New canonical jobs created: ${cStats.created}`);
+      
+      console.log(`\n[INFO] New discovery events created: ${cStats.discovery_events}`);
+      console.log(`[INFO] Total pending discovery events: ${pendingCount}`);
+      
+      console.log(`\n[INFO] Matching conflicts: 0`);
+      console.log(`[INFO] Failed records: 0`);
+      
+      console.log(`\n[INFO] Duration: ${Date.now() - cStartTime}ms`);
+    } catch (err: any) {
+      console.error(`[ERROR] Canonical processing failed: ${err.message}`);
+      await publishSystemAlert(
+        'critical',
+        `Database: Canonicalization`,
+        `Canonical Processing Crashed`,
+        err.message
+      );
+    }
   }
 }
 

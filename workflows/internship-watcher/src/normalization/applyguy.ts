@@ -1,5 +1,5 @@
-import { JobCandidate } from "../types/job";
-import { cleanString, cleanUrl } from "./utils";
+import { JobCandidate } from "../types/job.ts";
+import { cleanString, cleanUrl } from "./utils.ts";
 
 export function normalizeApplyGuy(raw: any): JobCandidate | null {
   if (!raw || typeof raw !== 'object') return null;

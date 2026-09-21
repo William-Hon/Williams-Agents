@@ -1,5 +1,5 @@
-import { JobCandidate, JobFilterResult } from "../types/job";
-import { FILTER_CONFIG } from "../config/filter-config";
+import { JobCandidate, JobFilterResult } from "../types/job.ts";
+import { FILTER_CONFIG } from "../config/filter-config.ts";
 
 export function filterJob(job: JobCandidate): JobFilterResult {
   // 1. Valid application URL (enforced during normalization mostly, but double check)

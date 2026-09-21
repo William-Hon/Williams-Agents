@@ -3,7 +3,9 @@
   "compilerOptions": {
     "outDir": "./dist",
     "rootDir": "./src",
-    "ignoreDeprecations": "5.0"
+    "ignoreDeprecations": "5.0",
+    "allowImportingTsExtensions": true,
+    "emitDeclarationOnly": true
   },
   "references": [
     { "path": "../../packages/core" }
