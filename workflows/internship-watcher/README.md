@@ -123,7 +123,7 @@ Before activating the schedule, you must save your `WATCHER_INVOKE_TOKEN` into S
 ### 2. Activate the Schedule
 Once the Vault secret exists, execute the scheduling migration to activate the Cron job:
 ```bash
-npx supabase db push # Or manually execute the contents of supabase/migrations/20260920000000_phase8_cron_schedule.sql
+npx supabase db push # Or manually execute the contents of supabase/migrations/20260920000002_phase8_cron_vault_fix.sql
 ```
 * **Job Name:** `internship-watcher-15min`
 * **Cron Expression:** `*/15 * * * *` (Executes 4 times per hour)
